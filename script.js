@@ -95,19 +95,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (type === 'DEAL') {
             dealFields.classList.remove('hidden');
-            document.getElementById('dealDetails').value = data.details;
-            document.getElementById('purchasingCompany').value = data.purchasing;
-            document.getElementById('dealCurrency').value = data.currency;
-            document.getElementById('dealAmount').value = data.amount;
             
-            const payingComp = document.getElementById('payingCompany');
-            payingComp.innerHTML = '';
-            data.companies.forEach(c => {
-                const opt = document.createElement('option');
-                opt.value = c;
-                opt.textContent = c;
-                payingComp.appendChild(opt);
-            });
+            const currAmount = document.getElementById('currencyAmount');
+            const exRate = document.getElementById('dealExchangeRate');
+            const recAmount = document.getElementById('receivingCurrencyAmount');
+            const recCurrCode = document.getElementById('receivingCurrencyCode');
+
+            const calculateReceivingTotal = () => {
+                const amount = parseFloat(currAmount.value) || 0;
+                const rate = parseFloat(exRate.value) || 0;
+                const code = recCurrCode.value;
+                recAmount.value = code + " " + (amount * rate).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            };
+
+            exRate.addEventListener('input', calculateReceivingTotal);
+            recCurrCode.addEventListener('change', calculateReceivingTotal);
+            
+            // --- Auto-Fetch Simulation ---
+            document.getElementById('dealPartyName').value = partyName.value;
+            document.getElementById('dealBillNumber').value = "BILL-" + Math.floor(10000 + Math.random() * 90000);
+            
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dealBillDate').value = today;
+            
+            document.getElementById('lcySender').value = "Primary Reserve Bank";
+            document.getElementById('lcyReceiver').value = partyName.value + " (Internal Account)";
+
+            // NEW: Auto-fetch Currency and Amount
+            document.getElementById('currencyCode').value = "USD";
+            currAmount.value = 5250.00;
+
+            // Default values for demo calculation
+            exRate.value = 82.50;
+            calculateReceivingTotal();
         } 
         else if (type === 'SALES') {
             salesFields.classList.remove('hidden');
