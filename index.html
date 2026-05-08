@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ERP Payment Module Design</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +26,6 @@
                 </div>
 
                 <form id="erpForm">
-                    <!-- Step 1: Payment Type -->
                     <div class="form-group" id="step-payment-type">
                         <label for="paymentType">Payment Type</label>
                         <select id="paymentType" name="paymentType" required>
@@ -45,13 +43,10 @@
                         </select>
                     </div>
 
-                    <!-- Step 3: Document Number -->
                     <div class="form-group hidden" id="step-doc-number">
                         <label for="docNumber">Document Number</label>
                         <input type="text" id="docNumber" name="docNumber" placeholder="Enter doc number...">
                     </div>
-
-                    <!-- Conditional Fields: DEAL PAYMENT -->
                     <div id="dealFields" class="conditional-section hidden">
                         <div class="section-title">Deal Information</div>
                         <div class="form-group">
@@ -95,7 +90,6 @@
                         </div>
                     </div>
 
-                    <!-- Conditional Fields: SALES PAYMENT -->
                     <div id="salesFields" class="conditional-section hidden">
                         <div class="section-title">Sales Information</div>
                         <div class="grid-2">
@@ -144,7 +138,6 @@
                         </div>
                     </div>
 
-                    <!-- Conditional Fields: EXPENSE PAYMENT -->
                     <div id="expenseFields" class="conditional-section hidden">
                         <div class="section-title">Expense Information</div>
                         <div class="form-group">
@@ -182,7 +175,6 @@
         </footer>
     </div>
 
-    <!-- Feedback Toast -->
     <div id="toast" class="toast hidden"></div>
 
     <script src="script.js"></script>
