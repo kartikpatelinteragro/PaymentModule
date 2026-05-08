@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ERP Payment Module Design</title>
+    <title>ERP Payment Module</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div class="app-container">
         <header>
@@ -26,6 +31,7 @@
                 </div>
 
                 <form id="erpForm">
+                    <!-- Step 1: Payment Type -->
                     <div class="form-group" id="step-payment-type">
                         <label for="paymentType">Payment Type</label>
                         <select id="paymentType" name="paymentType" required>
@@ -43,119 +49,153 @@
                         </select>
                     </div>
 
+                    <!-- Step 3: Document Number -->
                     <div class="form-group hidden" id="step-doc-number">
                         <label for="docNumber">Document Number</label>
                         <input type="text" id="docNumber" name="docNumber" placeholder="Enter doc number...">
                     </div>
+
+                    <!-- Conditional Fields: DEAL PAYMENT -->
                     <div id="dealFields" class="conditional-section hidden">
                         <div class="section-title">Deal Information</div>
-                        <div class="form-group">
-                            <label>Deal Details</label>
-                            <textarea id="dealDetails" readonly></textarea>
-                        </div>
+
                         <div class="grid-2">
                             <div class="form-group">
-                                <label>Which company is paying?</label>
-                                <select id="payingCompany"></select>
+                                <label>Party Name (Auto-fetch)</label>
+                                <input type="text" id="dealPartyName" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Purchasing Company</label>
-                                <input type="text" id="purchasingCompany" readonly>
+                                <select id="purchasingCompany">
+                                    <option value="ABC Corp">ABC Corp</option>
+                                    <option value="XYZ Ltd">XYZ Ltd</option>
+                                    <option value="Global Tech">Global Tech</option>
+                                </select>
                             </div>
                         </div>
+
                         <div class="grid-2">
                             <div class="form-group">
-                                <label>Currency</label>
-                                <input type="text" id="dealCurrency" readonly>
+                                <label>Bill Number (Auto-fetch)</label>
+                                <input type="text" id="dealBillNumber" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Amount</label>
-                                <input type="text" id="dealAmount" readonly>
+                                <label>Bill Date (Auto-fetch)</label>
+                                <input type="text" id="dealBillDate" readonly>
                             </div>
                         </div>
-                        <div class="grid-2">
+
+                        <div class="grid-3">
+                            <div class="form-group">
+                                <label>Currency Code (Auto-fetch)</label>
+                                <input type="text" id="currencyCode" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Currency Amount (Auto-fetch)</label>
+                                <input type="number" id="currencyAmount" readonly>
+                            </div>
                             <div class="form-group">
                                 <label>Exchange Rate (Manual)</label>
-                                <input type="number" step="0.01" id="exchangeRate" placeholder="0.00">
+                                <input type="number" id="dealExchangeRate" step="0.0001" placeholder="1.0000">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>Receiving Currency Code</label>
+                                <select id="receivingCurrencyCode">
+                                    <option value="INR">INR</option>
+                                    <option value="USD">USD</option>
+                                    <option value="CAD">CAD</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Receiving Currency</label>
-                                <select id="receivingCurrency">
-                                    <option value="USD">USD</option>
-                                    <option value="EUR">EUR</option>
-                                    <option value="INR">INR</option>
-                                    <option value="AED">AED</option>
-                                </select>
+                                <label>Receiving Currency Amount</label>
+                                <input type="text" id="receivingCurrencyAmount" readonly placeholder="Calculated...">
+                            </div>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label>LCY Sender (Auto-fetch)</label>
+                                <input type="text" id="lcySender" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>LCY Receiver (Auto-fetch)</label>
+                                <input type="text" id="lcyReceiver" readonly>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Conditional Fields: SALES PAYMENT -->
                     <div id="salesFields" class="conditional-section hidden">
                         <div class="section-title">Sales Information</div>
                         <div class="grid-2">
                             <div class="form-group">
-                                <label>Commodity Name</label>
-                                <input type="text" id="salesCommodity" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Party Name</label>
+                                <label>Party Name (Auto-fetch)</label>
                                 <input type="text" id="salesParty" readonly>
                             </div>
+                            <div class="form-group">
+                                <label>Commodity Name (Auto-fetch)</label>
+                                <input type="text" id="salesCommodity" readonly>
+                            </div>
+
                         </div>
                         <div class="grid-3">
                             <div class="form-group">
-                                <label>Quantity</label>
+                                <label>Quantity (Auto-fetch)</label>
                                 <input type="text" id="salesQty" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Rate</label>
+                                <label>Rate (Auto-fetch)</label>
                                 <input type="text" id="salesRate" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Total Value</label>
+                                <label>Total Value (Auto-fetch)</label>
                                 <input type="text" id="salesTotal" readonly>
                             </div>
                         </div>
                         <div class="grid-2">
                             <div class="form-group">
-                                <label>Currency</label>
+                                <label>Currency (Auto-fetch)</label>
                                 <input type="text" id="salesCurrency" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Payment Term</label>
+                                <label>Payment Term (Auto-fetch)</label>
                                 <input type="text" id="salesTerm" readonly>
                             </div>
                         </div>
                         <div class="grid-2">
                             <div class="form-group">
-                                <label>Value of Advance</label>
+                                <label>Value of Advance (Auto-fetch)</label>
                                 <input type="text" id="salesAdvance" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Percentage (%)</label>
+                                <label>Percentage (%) (Auto-fetch)</label>
                                 <input type="text" id="salesPercent" readonly>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Conditional Fields: EXPENSE PAYMENT -->
                     <div id="expenseFields" class="conditional-section hidden">
                         <div class="section-title">Expense Information</div>
                         <div class="form-group">
-                            <label>Name of Party</label>
+                            <label>Name of Party (Auto-fetch)</label>
                             <input type="text" id="expenseParty" readonly>
                         </div>
                         <div class="grid-2">
                             <div class="form-group">
-                                <label>Item Name</label>
+                                <label>Item Name (Auto-fetch)</label>
                                 <input type="text" id="expenseItem" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Item Value</label>
+                                <label>Item Value (Auto-fetch)</label>
                                 <input type="text" id="expenseValue" readonly>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Currency (According to Bill)</label>
+                            <label>Currency (Auto-fetch)</label>
                             <input type="text" id="expenseCurrency" readonly>
                         </div>
                     </div>
@@ -169,11 +209,12 @@
                 </form>
             </div>
         </main>
-
     </div>
 
+    <!-- Feedback Toast -->
     <div id="toast" class="toast hidden"></div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
