@@ -123,6 +123,33 @@ textarea {
     height: 80px;
 }
 
+.amount-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.amount-input-wrapper:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.currency-prefix {
+    padding-left: 16px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.amount-input-wrapper input {
+    border: none !important;
+    box-shadow: none !important;
+    padding-left: 8px !important;
+}
+
 input[readonly], textarea[readonly] {
     background: #f1f5f9;
     color: #475569;
